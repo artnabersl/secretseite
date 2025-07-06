@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ Exklusiver Zugang für ausgewählte Teilnehmer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a0a;
+            margin: 0;
+            padding: 0;
+            color: #e0e0e0;
+            background-image: radial-gradient(circle at 10% 20%, #2a0a4a 0%, #0a0a0a 90%);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0;
+            background-color: #151515;
+            box-shadow: 0 0 50px rgba(123, 31, 162, 0.8);
+            border-radius: 10px;
+            border: 1px solid #444;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+            color: white;
+            position: relative;
+            border-bottom: 5px solid #ffab00;
+        }
+        
+        .header:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(135deg, transparent, #ffab00, transparent);
+            opacity: 0.7;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 3px rgba(0,0,0,0.8);
+            letter-spacing: -1px;
+        }
+        
+        .subhead {
+            font-size: 1.7em;
+            font-weight: bold;
+            margin-bottom: 0;
+            color: #ffab00;
+            text-shadow: 0 0 15px rgba(255, 171, 0, 0.7);
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .mystery-box {
+            background-color: rgba(0,0,0,0.3);
+            border: 3px dashed #ffab00;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mystery-box:before {
+            content: "???";
+            position: absolute;
+            font-size: 120px;
+            color: rgba(255,171,0,0.1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+        
+        .mystery-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .urgency {
+            color: #ff6b6b;
+            font-weight: bold;
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.8em;
+            animation: pulseRed 1s infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background-color: rgba(255, 0, 0, 0.1);
+            padding: 20px;
+            border: 1px solid #ff5252;
+            border-radius: 5px;
+        }
+        
+        @keyframes pulseRed {
+            from { text-shadow: 0 0 10px rgba(255, 82, 82, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 82, 82, 0.8); }
+        }
+        
+        .form-container {
+            background: linear-gradient(135deg, #1a1a1a, #111);
+            padding: 40px;
+            margin: 0 -30px;
+            border-top: 3px solid #ffab00;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .form-container:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff8f00, #ffab00, #ff8f00);
+            animation: borderFlow 3s infinite linear;
+        }
+        
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .form-heading {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffab00;
+            font-size: 2.2em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 171, 0, 0.7);
+        }
+        
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #444;
+            border-radius: 5px;
+            font-size: 1.2em;
+            box-sizing: border-box;
+            background-color: #222;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus, input[type="email"]:focus {
+            border-color: #ffab00;
+            outline: none;
+            box-shadow: 0 0 15px rgba(255,171,0,0.7);
+            background-color: #2a2a2a;
+        }
+        
+        ::placeholder {
+            color: #777;
+            font-style: italic;
+        }
+        
+        button[type="submit"] {
+            background: linear-gradient(135deg, #ff8f00, #ffab00);
+            color: #111;
+            border: none;
+            padding: 25px;
+            font-size: 1.5em;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+            box-shadow: 0 5px 25px rgba(255,171,0,0.6);
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #ffab00, #ff8f00);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255,171,0,0.8);
+        }
+        
+        button[type="submit"]:after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.13);
+            transform: rotate(30deg);
+            transition: all 0.3s;
+        }
+        
+        button[type="submit"]:hover:after {
+            left: 100%;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #555;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            background-color: #111;
+            padding: 20px;
+        }
+        
+        /* Dark patterns */
+        .visitor-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(123, 31, 162, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        
+        .fake-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,100,0,0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1em;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: none;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(100px); opacity: 0; }
+            10% { transform: translateY(0); opacity: 1; }
+            90% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-50px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="visitor-counter">
+        <span id="visitor-number">1.428</span> Personen sehen dies jetzt
+    </div>
+    
+    <div class="fake-notification" id="fakeNotif">
+        Michael aus Berlin hat sich gerade angemeldet!
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>EXKLUSIVER ZUGANG</h1>
+            <div class="subhead">NUR FÜR AUSGEWÄHLTE TEILNEHMER</div>
+        </div>
+        
+        <div class="content">
+            <div class="urgency">
+                ⚠️ BEGRENZTE VERFÜGBARKEIT: Nur noch <span id="spots-left">3</span> Plätze frei!
+            </div>
+            
+            <div class="mystery-box">
+                <div class="mystery-content">
+                    <h2>WAS WIR DIR BIETEN:</h2>
+                    <p>Dieses exklusive System ist <strong>so wertvoll</strong>, dass wir nicht alle Details öffentlich teilen können.</p>
+                    <p>Nach deiner Anmeldung wirst du:</p>
+                    <ul style="text-align: left; margin-left: 20px;">
+                        <li>Zugang zu einem <strong>geheimen System</strong> erhalten</li>
+                        <li>Die Möglichkeit haben, <strong>passives Einkommen</strong> zu generieren</li>
+                        <li>Von unseren <strong>Expertenstrategien</strong> profitieren</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-style: italic;">
+                        "Ich war skeptisch, aber nach der Anmeldung wurde ich positiv überrascht!"<br>
+                        - <strong>Thomas S.</strong> (verifizierter Nutzer)
+                    </p>
+                </div>
+            </div>
+            
+            <p style="text-align: center; font-size: 1.2em;">
+                <span style="color: #ffab00">Warum fragen wir nicht nach mehr Details?</span><br>
+                Weil wir <strong>nur ernsthafte Interessenten</strong> wollen, die bereit sind, <strong>sofort zu handeln</strong>.
+            </p>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-heading">JETZT ZUGANG SICHERN</div>
+            
+            <form method="post" action="https://www.sendsteed.com/subscribe/" id="signupForm">
+                <input name="e108028" required type="email" placeholder="Deine beste Email..." autofocus id="emailInput">
+                <input name="n108028" required type="text" placeholder="Dein Name">
+                <input type="hidden" name="lllid" value="108028">
+                <input type="hidden" name="lluid" value="sandyarta">
+                <input type="hidden" name="redirect" value="">
+                <input type="hidden" name="source" value="githubemailseite_mystery">
+                
+                <div style="text-align: center; margin: 25px 0;">
+                    <label style="display: inline-block;">
+                        <input type="checkbox" required checked style="margin-right: 10px;">
+                        Ich bin bereit für exklusive Informationen
+                    </label>
+                </div>
+                
+                <button type="submit">🔓 JETZT SOFORT-ZUGANG ANFORDERN</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #777;">
+                <i>Deine Daten sind sicher. Kein Spam. Jederzeit abbestellbar.</i>
+            </div>
+        </div>
+        
+        <div class="footer">
+            © 2023 Exklusiv-Club. Alle Rechte vorbehalten.<br>
+            <small style="color: #444;">Ergebnisse können variieren. Nur für ernsthafte Teilnehmer.</small>
+        </div>
+    </div>
+    
+    <script>
+        // Aggressiver Countdown für verfügbare Plätze
+        let spotsLeft = 3;
+        setInterval(() => {
+            if (spotsLeft > 0 && Math.random() > 0.7) {
+                spotsLeft--;
+                document.getElementById('spots-left').textContent = spotsLeft;
+                
+                // Fake-Benachrichtigung anzeigen
+                if (spotsLeft < 3) {
+                    const names = ["Michael", "Sarah", "Thomas", "Julia", "David"];
+                    const cities = ["Berlin", "München", "Hamburg", "Köln", "Frankfurt"];
+                    const randomName = names[Math.floor(Math.random() * names.length)];
+                    const randomCity = cities[Math.floor(Math.random() * cities.length)];
+                    
+                    document.getElementById('fakeNotif').textContent = 
+                        `${randomName} aus ${randomCity} hat sich gerade angemeldet!`;
+                    document.getElementById('fakeNotif').style.display = 'block';
+                    document.getElementById('fakeNotif').style.animation = 'floatUp 5s forwards';
+                    
+                    setTimeout(() => {
+                        document.getElementById('fakeNotif').style.display = 'none';
+                    }, 5000);
+                }
+            }
+            
+            if (spotsLeft === 0) {
+                document.getElementById('spots-left').textContent = "AUSVERKAUFT";
+                document.getElementById('spots-left').style.color = "#ff0000";
+                document.querySelector('button[type="submit"]').disabled = true;
+                document.querySelector('button[type="submit"]').textContent = "❌ KEINE PLÄTZE MEHR VERFÜGBAR";
+                document.querySelector('button[type="submit"]').style.background = "#555";
+            }
+        }, 15000);
+        
+        // Fake Besucherzähler
+        let visitorCount = 1428;
+        setInterval(() => {
+            visitorCount += Math.floor(Math.random() * 3) + 1;
+            document.getElementById('visitor-number').textContent = visitorCount.toLocaleString('de-DE');
+        }, 8000);
+        
+        // Exit-Intent Popup
+        document.addEventListener('mouseout', (e) => {
+            if (!e.toElement && !e.relatedTarget) {
+                document.getElementById('emailInput').focus();
+                
+                // Fake dringende Nachricht
+                const urgentMsg = document.createElement('div');
+                urgentMsg.innerHTML = `
+                    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #4a148c; color: white; padding: 30px; z-index: 10000; border: 3px solid #ffab00; max-width: 500px; text-align: center;">
+                        <h3 style="color: #ffab00; margin-top: 0;">WARTEN SIE!</h3>
+                        <p>Sie sind dabei, diese einzigartige Gelegenheit zu verpassen. Nur noch ${spotsLeft} Plätze verfügbar!</p>
+                        <p style="font-weight: bold;">Möchten Sie wirklich gehen, ohne zu wissen, was Sie verpassen?</p>
+                        <button style="background: #ffab00; color: #111; border: none; padding: 15px 30px; margin: 10px; font-weight: bold; cursor: pointer;" onclick="this.parentNode.remove()">
+                            NEIN, ICH WILL MEHR ERFAHREN
+                        </button>
+                        <button style="background: transparent; color: #ffab00; border: 1px solid #ffab00; padding: 15px 30px; margin: 10px; cursor: pointer;" onclick="this.parentNode.remove()">
+                            TROTZDEM VERLASSEN
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(urgentMsg);
+            }
+        });
+        
+        // Automatische Fokus-Steuerung
+        setTimeout(() => {
+            if (!document.activeElement.matches('input')) {
+                document.getElementById('emailInput').focus();
+            }
+        }, 5000);
+        
+        // Fake-Typing-Effekt
+        setTimeout(() => {
+            const emailInput = document.getElementById('emailInput');
+            const text = "ihre@email.com";
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    emailInput.placeholder = emailInput.placeholder.slice(0, -1) + text.charAt(i) + "|";
+                    i++;
+                    setTimeout(typeWriter, 100);
+                } else {
+                    emailInput.placeholder = emailInput.placeholder.slice(0, -1);
+                }
+            }
+            
+            typeWriter();
+        }, 2000);
+    </script>
+</body>
+</html>
